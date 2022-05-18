@@ -50,7 +50,6 @@ module.exports.registerUser = (reqBody) => {
 };
 
 module.exports.loginUser = (reqBody) => {
-  //findOne it will returns the first record in the collection that matches the search criteria
 
   return User.findOne({ email: reqBody.email }).then((result) => {
     //User does not exist

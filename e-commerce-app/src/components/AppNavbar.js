@@ -1,5 +1,5 @@
 // component library --------------------------------------
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   chakra,
   HStack,
@@ -20,27 +20,30 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { useViewportScroll } from 'framer-motion';
-
 // ICONS --------------------------------------
 import { IoIosArrowDown } from 'react-icons/io';
 import { TiHomeOutline, TiShoppingCart, TiShoppingBag } from 'react-icons/ti';
-import { AiOutlineMenu, AiFillShop } from 'react-icons/ai';
-import { MoonIcon } from '@chakra-ui/icons';
+import { AiOutlineMenu } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
+import { SiElastic } from 'react-icons/si';
 
 // ROUTER --------------------------------------
 import { Link as ReactRouterLink } from 'react-router-dom';
+
+// UserContext --------------------------------------
+import UserContext from '../UserContext';
 
 export default function Header() {
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
-  const bg = useColorModeValue('white', 'gray.800');
+  const bg = useColorModeValue('gray.50', 'gray.800');
   const ref = React.useRef();
   const [y, setY] = React.useState(0);
   const { height = 0 } = ref.current ? ref.current.getBoundingClientRect() : {};
-
   const { scrollY } = useViewportScroll();
+  const { user } = useContext(UserContext);
+
   React.useEffect(() => {
     return scrollY.onChange(() => setY(scrollY.get()));
   }, [scrollY]);
@@ -161,12 +164,13 @@ export default function Header() {
         justifySelf='self-start'
         onClick={mobileNav.onClose}
       />
+      {/* home */}
       <ReactRouterLink to='/'>
         <Button w='full' variant='ghost' leftIcon={<TiHomeOutline />}>
           Home
         </Button>
       </ReactRouterLink>
-
+      {/* shop */}
       <ReactRouterLink to='/shop'>
         <Button
           w='full'
@@ -177,6 +181,7 @@ export default function Header() {
           Shop
         </Button>
       </ReactRouterLink>
+      {/* cart */}
       <ReactRouterLink to='/cart'>
         <Button w='full' variant='ghost' leftIcon={<TiShoppingCart />}>
           Cart
@@ -207,7 +212,7 @@ export default function Header() {
           <Flex align='flex-start'>
             <ReactRouterLink to='/'>
               <HStack>
-                <AiFillShop size={35} color='teal' />
+                <SiElastic size={35} color='teal' />
 
                 <Button
                   bg={bg}
@@ -296,9 +301,33 @@ export default function Header() {
             </HStack>
           </Flex>
           {/* SIGN IN AND SIGN UP BUTTON */}
+
           <Flex justify='flex-end' align='center' color='gray.400'>
             <HStack spacing='5' display={{ base: 'none', md: 'flex' }}>
-              <ReactRouterLink to='/login'>
+              {user.id !== null ? (
+                <>
+                  <ReactRouterLink to='/logout'>
+                    <Button colorScheme='brand' variant='ghost' size='sm'>
+                      Logout
+                    </Button>
+                  </ReactRouterLink>
+                </>
+              ) : (
+                <>
+                  <ReactRouterLink to='/login'>
+                    <Button colorScheme='brand' variant='ghost' size='sm'>
+                      Sign in
+                    </Button>
+                  </ReactRouterLink>
+                  <ReactRouterLink to='/signup'>
+                    <Button colorScheme='brand' variant='outline' size='sm'>
+                      Sign up
+                    </Button>
+                  </ReactRouterLink>
+                </>
+              )}
+
+              {/* <ReactRouterLink to='/login'>
                 <Button colorScheme='brand' variant='ghost' size='sm'>
                   Sign in
                 </Button>
@@ -307,7 +336,7 @@ export default function Header() {
                 <Button colorScheme='brand' variant='outline' size='sm'>
                   Sign up
                 </Button>
-              </ReactRouterLink>
+              </ReactRouterLink> */}
             </HStack>
             <IconButton
               size='md'

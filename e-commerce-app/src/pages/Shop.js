@@ -1,4 +1,4 @@
-import { Wrap, Stack, Flex } from '@chakra-ui/react';
+import { Wrap, Stack, Flex, Spacer } from '@chakra-ui/react';
 import { Fragment, useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
 //import coursesData from '../data/coursesData';

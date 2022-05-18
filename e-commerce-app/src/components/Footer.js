@@ -3,6 +3,7 @@ import {
   Box,
   chakra,
   Container,
+  HStack,
   Stack,
   Text,
   useColorModeValue,
@@ -10,8 +11,9 @@ import {
 } from '@chakra-ui/react';
 
 // ICONS -------------------------------------------------
-import { AiFillShop } from 'react-icons/ai';
+
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { SiElastic } from 'react-icons/si';
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -52,8 +54,11 @@ export default function SmallWithLogoLeft() {
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}
       >
-        <AiFillShop size={35} color='teal' />
-        <Text>© 2022 Camisetas. All rights reserved</Text>
+        <HStack>
+          <SiElastic size={35} color='teal' /> <Text>Camisteas</Text>
+        </HStack>
+
+        <Text>© All rights reserved 2022.</Text>
         <Stack direction={'row'} spacing={6}>
           <SocialButton label={'Twitter'} href={'#'}>
             <FaTwitter />

@@ -31,7 +31,7 @@ module.exports.addProduct = (data) => {
 //Retrieving All courses ---------------------------------------
 
 module.exports.getAllProduct = () => {
-  return Course.find({}).then((result) => {
+  return Product.find({}).then((result) => {
     return result;
   });
 };
