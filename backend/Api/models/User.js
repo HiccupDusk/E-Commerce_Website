@@ -25,22 +25,38 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  enrollments: [
+  addToCartItems: [
     {
-      courseId: {
+      productId: {
         type: String,
-        required: [true, 'Course ID is required'],
+        required: [true, 'Product ID is required'],
       },
-      enrolledOn: {
+      addedToCartOn: {
         type: Date,
         default: new Date(),
       },
       status: {
         type: String,
-        default: 'Enrolled',
+        default: 'For Checkout',
       },
     },
   ],
+  // checkoutItems: [
+  //   {
+  //     productId: {
+  //       type: String,
+  //       required: [true, 'Product ID is required'],
+  //     },
+  //     enrolledOn: {
+  //       type: Date,
+  //       default: new Date(),
+  //     },
+  //     status: {
+  //       type: String,
+  //       default: 'Bought',
+  //     },
+  //   },
+  // ],
 });
 
 module.exports = mongoose.model('User', userSchema);

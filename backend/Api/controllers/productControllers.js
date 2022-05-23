@@ -29,7 +29,6 @@ module.exports.addProduct = (data) => {
 };
 
 //Retrieving All courses ---------------------------------------
-
 module.exports.getAllProduct = () => {
   return Product.find({}).then((result) => {
     return result;
@@ -37,11 +36,47 @@ module.exports.getAllProduct = () => {
 };
 
 //Retrieve all ACTIVE courses
-
 module.exports.getAllActive = () => {
   return Product.find({ isActive: true }).then((result) => {
     return result;
   });
+};
+// Retrieve User Order
+module.exports.retrieveOrderUser = (data) => {
+  return Product.find({
+    customers: { $elemMatch: { userId: data.userId } },
+  }).then((result) => {
+    return result;
+  });
+};
+
+// Remove From cart
+module.exports.removeFromCart = (data) => {
+  return Product.updateOne(
+    { _id: data.productId },
+    { $pull: { customers: { userId: data.userId } } }
+  ).then((result) => {
+    return result;
+  });
+  s;
+};
+
+// ADD TOTAL CARTS FROM USER
+module.exports.addTotalOrders = (data) => {
+  return Product.aggregate([
+    {
+      $match: {
+        customers: { $elemMatch: { userId: data.userId } },
+      },
+    },
+    { $group: { _id: '', price: { $sum: '$price' } } },
+    {
+      $project: {
+        _id: 0,
+        price: '$price',
+      },
+    },
+  ]);
 };
 
 //Retrieve SPECIFIC course ---------------------------------------

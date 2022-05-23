@@ -1,7 +1,19 @@
 import * as React from 'react';
-import { Container, chakra, Stack, Text, Button, Box } from '@chakra-ui/react';
+import {
+  Container,
+  chakra,
+  Stack,
+  Text,
+  Button,
+  Box,
+  Link,
+  VStack,
+} from '@chakra-ui/react';
+
 // Here we have used react-icons package for the icons
 import { FaGithub } from 'react-icons/fa';
+import { TiShoppingCart } from 'react-icons/ti';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -10,15 +22,15 @@ const HeroSection = () => {
         <Box
           py={2}
           px={3}
-          bg='teal'
+          bgGradient='linear(to-r, teal.400, pink.300)'
           w='max-content'
           color='white'
           rounded='md'
           fontSize='sm'
         >
           <Stack direction={{ base: 'column', sm: 'row' }}>
-            <Text fontWeight='bold'>Ready, Set, Build! 🚀</Text>
-            <Text>Join the Hackathon!</Text>
+            <Text fontWeight='bold'>Ready, Set, Shop! 🛒 </Text>
+            <Text>Sign now to start shopping!</Text>
           </Stack>
         </Box>
         <chakra.h1
@@ -26,46 +38,53 @@ const HeroSection = () => {
           fontWeight='bold'
           textAlign='center'
           maxW='600px'
+          bgGradient='linear(to-l,teal.400, pink.300)'
+          bgClip='text'
         >
-          Create accessible React apps{' '}
-          <chakra.span
-            color='teal'
-            bg='linear-gradient(transparent 50%, #83e9e7 50%)'
-          >
-            with speed
-          </chakra.span>
+          Shop accessible Camisteas's products with speed
         </chakra.h1>
         <Text maxW='550px' fontSize='xl' textAlign='center' color='gray.500'>
-          Chakra UI is a simple, modular and accessible component library that
-          gives you the building blocks you need to build your React
-          applications.
+          Camisetas is an online store that offers shirts, tops and clothes with
+          original and personalized design. Our products are hand -made, made to
+          last, and made from 100% comfortable materials
         </Text>
         <Stack
           direction={{ base: 'column', sm: 'row' }}
           w={{ base: '100%', sm: 'auto' }}
           spacing={5}
         >
-          <Button
-            colorScheme='teal'
-            variant='outline'
-            rounded='md'
-            size='lg'
-            height='3.5rem'
-            fontSize='1.2rem'
-          >
-            Get Started
-          </Button>
-          <Button
-            leftIcon={<FaGithub />}
-            colorScheme='gray'
-            variant='outline'
-            rounded='md'
-            size='lg'
-            height='3.5rem'
-            fontSize='1.2rem'
-          >
-            Github
-          </Button>
+          <VStack alignItems='center'>
+            <Text
+              bgGradient='linear(to-r, teal.200, pink.300)'
+              bgClip='text'
+              fontWeight='medium'
+            >
+              Already have an account?
+              <ReactRouterLink to='/login'>
+                <Link
+                  color='teal.400'
+                  as='span'
+                  ms='5px'
+                  href='#'
+                  fontWeight='bold'
+                >
+                  Sign In
+                </Link>
+              </ReactRouterLink>
+            </Text>
+            <Button
+              as='a'
+              bgGradient='linear(to-l,pink.300,  teal.400)'
+              w={{ base: 'full', sm: 'auto' }}
+              size='lg'
+              mb={{ base: 2, sm: 0 }}
+              cursor='pointer'
+            >
+              <ReactRouterLink to='/signup'>
+                <Text color='white'>Sign up for free</Text>
+              </ReactRouterLink>
+            </Button>
+          </VStack>
         </Stack>
       </Stack>
     </Container>

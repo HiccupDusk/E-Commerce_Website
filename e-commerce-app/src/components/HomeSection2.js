@@ -38,81 +38,27 @@ const KuttyHero = () => {
         px={{ base: 4, lg: 20 }}
         py={24}
       >
-        <Badge
-          color='white'
-          px={3}
-          py={1}
-          mb={3}
-          variant='solid'
-          colorScheme='brand'
-          rounded='full'
-        >
-          Pre Beta
-        </Badge>
         <chakra.h1
           mb={6}
           fontSize={{ base: '4xl', md: '4xl', lg: '5xl' }}
           fontWeight='bold'
           color={useColorModeValue('brand.600', 'gray.300')}
           lineHeight='shorter'
+          bgGradient='linear(to-l,pink.300,  teal.400)'
+          bgClip='text'
         >
           Great customer relationships start here.
         </chakra.h1>
-        <chakra.form w='full' mb={6}>
-          <VisuallyHidden>Your Email</VisuallyHidden>
-          <Box display={{ base: 'block', lg: 'none' }}>
-            <Input
-              size='lg'
-              color='brand.900'
-              type='email'
-              placeholder='Enter your email...'
-              bg='white'
-              required='true'
-            />
-            <Button
-              w='full'
-              mt={2}
-              color='white'
-              variant='solid'
-              colorScheme='brand'
-              size='lg'
-              type='submit'
-            >
-              Get Started
-            </Button>
-          </Box>
-          <InputGroup size='lg' w='full' display={{ base: 'none', lg: 'flex' }}>
-            <Input
-              size='lg'
-              color='brand.900'
-              type='email'
-              placeholder='Enter your email...'
-              bg='white'
-              required='true'
-            />
-            <InputRightElement w='auto'>
-              <Button
-                color='white'
-                variant='solid'
-                colorScheme='brand'
-                size='lg'
-                type='submit'
-                roundedLeft={0}
-              >
-                Get Started
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </chakra.form>
+
         <chakra.p
           pr={{ base: 0, lg: 16 }}
           mb={4}
           fontSize='sm'
-          color={useColorModeValue('brand.600', 'gray.400')}
+          color={useColorModeValue('gra.500', 'gray.400')}
           letterSpacing='wider'
         >
-          Get the #1 Business Messenger and start delivering personalized
-          experiences at every stage of the customer journey.
+          Get the #1 Product here in Camisetas and start purchasing personalized
+          products at every stage of the your journey.
         </chakra.p>
       </Flex>
       <Box>

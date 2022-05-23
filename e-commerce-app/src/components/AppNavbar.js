@@ -18,12 +18,13 @@ import {
   useColorMode,
   SimpleGrid,
   Icon,
+  Text,
 } from '@chakra-ui/react';
 import { useViewportScroll } from 'framer-motion';
 // ICONS --------------------------------------
 import { IoIosArrowDown } from 'react-icons/io';
 import { TiHomeOutline, TiShoppingCart, TiShoppingBag } from 'react-icons/ti';
-import { AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineMenu, AiOutlineDashboard } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { SiElastic } from 'react-icons/si';
 
@@ -34,6 +35,7 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 import UserContext from '../UserContext';
 
 export default function Header() {
+  // chakra --------------------------------------
   const { toggleColorMode: toggleMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
@@ -42,6 +44,8 @@ export default function Header() {
   const [y, setY] = React.useState(0);
   const { height = 0 } = ref.current ? ref.current.getBoundingClientRect() : {};
   const { scrollY } = useViewportScroll();
+
+  // UserContext --------------------------------------
   const { user } = useContext(UserContext);
 
   React.useEffect(() => {
@@ -106,13 +110,12 @@ export default function Header() {
     {
       title: 'Security',
       icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-      description: 'Your customers&#039; data will be safe and secure',
+      description: `Your customers's data will be safe and secure`,
     },
     {
       title: 'Integrations',
       icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z',
-      description:
-        'Connect with third-party tools that you&#039;re already using.',
+      description: `Connect with third-party tools that you're already using.`,
     },
     {
       title: 'Automations',
@@ -221,11 +224,18 @@ export default function Header() {
                   alignItems='center'
                   fontSize='2xl'
                 >
-                  CAMISETAS
+                  <Text
+                    bgClip='text'
+                    bgGradient='linear(to-r, teal.300, pink.400)'
+                    style={{ letterSpacing: '5px' }}
+                  >
+                    CAMISETAS
+                  </Text>
                 </Button>
               </HStack>
             </ReactRouterLink>
           </Flex>
+
           {/* FEATURES, HOME, SHOP, CART BUTTON */}
           <Flex>
             <HStack spacing='5' display={{ base: 'none', md: 'flex' }}>
@@ -268,40 +278,61 @@ export default function Header() {
                   Home
                 </Button>
               </ReactRouterLink>
-              {/* SHOP */}
-              <ReactRouterLink to='/shop'>
-                <Button
-                  bg={bg}
-                  color='gray.500'
-                  display='inline-flex'
-                  alignItems='center'
-                  fontSize='md'
-                  _hover={{ color: cl }}
-                  _focus={{ boxShadow: 'none' }}
-                  leftIcon={<TiShoppingCart />}
-                >
-                  Shop
-                </Button>
-              </ReactRouterLink>
-              {/* CART */}
-              <ReactRouterLink to='/signup'>
-                <Button
-                  bg={bg}
-                  color='gray.500'
-                  display='inline-flex'
-                  alignItems='center'
-                  fontSize='md'
-                  _hover={{ color: cl }}
-                  _focus={{ boxShadow: 'none' }}
-                  leftIcon={<TiShoppingBag rt />}
-                >
-                  Cart
-                </Button>
-              </ReactRouterLink>
+              {user.isAdmin === true ? (
+                <>
+                  <ReactRouterLink to='/dashboard'>
+                    <Button
+                      bg={bg}
+                      color='gray.500'
+                      display='inline-flex'
+                      alignItems='center'
+                      fontSize='md'
+                      _hover={{ color: cl }}
+                      _focus={{ boxShadow: 'none' }}
+                      leftIcon={<AiOutlineDashboard />}
+                    >
+                      Dashboard
+                    </Button>
+                  </ReactRouterLink>
+                </>
+              ) : (
+                <>
+                  {/* SHOP */}
+                  <ReactRouterLink to='/shop'>
+                    <Button
+                      bg={bg}
+                      color='gray.500'
+                      display='inline-flex'
+                      alignItems='center'
+                      fontSize='md'
+                      _hover={{ color: cl }}
+                      _focus={{ boxShadow: 'none' }}
+                      leftIcon={<TiShoppingCart />}
+                    >
+                      Shop
+                    </Button>
+                  </ReactRouterLink>
+                  {/* CART */}
+                  <ReactRouterLink to='/cart'>
+                    <Button
+                      bg={bg}
+                      color='gray.500'
+                      display='inline-flex'
+                      alignItems='center'
+                      fontSize='md'
+                      _hover={{ color: cl }}
+                      _focus={{ boxShadow: 'none' }}
+                      leftIcon={<TiShoppingBag rt />}
+                    >
+                      Cart
+                    </Button>
+                  </ReactRouterLink>{' '}
+                </>
+              )}
             </HStack>
           </Flex>
-          {/* SIGN IN AND SIGN UP BUTTON */}
 
+          {/* SIGN IN AND SIGN UP BUTTON */}
           <Flex justify='flex-end' align='center' color='gray.400'>
             <HStack spacing='5' display={{ base: 'none', md: 'flex' }}>
               {user.id !== null ? (

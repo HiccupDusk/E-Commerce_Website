@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema({
   //     required: [true, 'Image is required'],
   //   },
 
-  consumers: [
+  customers: [
     {
       userId: {
         type: String,

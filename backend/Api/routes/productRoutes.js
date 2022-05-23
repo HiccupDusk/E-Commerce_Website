@@ -3,7 +3,58 @@ const router = express.Router();
 const ProductController = require('../controllers/productControllers');
 const auth = require('../auth');
 
-//Creating a course
+//Retrieving ALL products
+router.get('/all', (req, res) => {
+  ProductController.getAllProduct().then((result) => res.send(result));
+});
+
+//Retrieving all ACTIVE products
+router.get('/', (req, res) => {
+  ProductController.getAllActive().then((result) => res.send(result));
+});
+
+//RETRIEVE USER'S ORDER DETAIL
+router.get('/retrieveOrderUser', (req, res) => {
+  // const data = auth.decode(req.headers.authorization);
+  const data = {
+    userId: auth.decode(req.headers.authorization).id,
+    // isAdmin: auth.decode(req.headers.authorization).isAdmin,
+    // productId: req.body.productId,
+  };
+  ProductController.retrieveOrderUser(data).then((result) => res.send(result));
+});
+
+router.post('/removeFromCart', (req, res) => {
+  // const data = auth.decode(req.headers.authorization);
+  const data = {
+    userId: auth.decode(req.headers.authorization).id,
+    productId: req.body.productId,
+    // isAdmin: auth.decode(req.headers.authorization).isAdmin,
+    // productId: req.body.productId,
+  };
+  ProductController.removeFromCart(data).then((result) => res.send(result));
+});
+
+// ADD TOTAL CARTS FROM USER
+router.post('/addTotalOrders', (req, res) => {
+  // const data = auth.decode(req.headers.authorization);
+  const data = {
+    userId: auth.decode(req.headers.authorization).id,
+    productId: req.body.productId,
+    // isAdmin: auth.decode(req.headers.authorization).isAdmin,
+    // productId: req.body.productId,
+  };
+  ProductController.addTotalOrders(data).then((result) => res.send(result));
+});
+
+//Retrieving a SPECIFIC products
+router.get('/specificProduct/:productId', (req, res) => {
+  ProductController.getProduct(req.params.productId).then((result) =>
+    res.send(result)
+  );
+});
+
+//Creating a products (ADMIN)
 router.post('/createProduct', auth.verify, (req, res) => {
   const data = {
     product: req.body,
@@ -19,44 +70,14 @@ router.post('/createProduct', auth.verify, (req, res) => {
   }
 });
 
-//Answer
-// router.post("/", auth.verify, (req, res) => {
-// 	const userData = auth.decode(req.headers.authorization);
-// 	isAdmin = userData.isAdmin;
-// 	console.log(isAdmin);
-// 	if (isAdmin) {
-// 		CourseController.addCourse(req.body).then(result => res.send(result));
-// 	}	else{
-// 		res.send(false);
-// 	}
-// });
-
-//Retrieving ALL courses
-router.get('/all', (req, res) => {
-  ProductController.getAllProduct().then((result) => res.send(result));
-});
-
-//Retrieving all ACTIVE courses
-router.get('/', (req, res) => {
-  ProductController.getAllActive().then((result) => res.send(result));
-});
-
-//Retrieving a SPECIFIC course
-router.get('/:courseId', (req, res) => {
-  ProductController.getProduct(req.params.courseId).then((result) =>
-    res.send(result)
-  );
-});
-
-//Update a course
-
-router.put('/:courseId', auth.verify, (req, res) => {
+//Update a products(ADMIN)
+router.put('/:productId', auth.verify, (req, res) => {
   const data = {
     isAdmin: auth.decode(req.headers.authorization).isAdmin,
   };
 
   if (data.isAdmin) {
-    ProductController.updateCourse(req.params.courseId, req.body).then(
+    ProductController.updateProduct(req.params.productId, req.body).then(
       (result) => res.send(result)
     );
   } else {
@@ -64,20 +85,7 @@ router.put('/:courseId', auth.verify, (req, res) => {
   }
 });
 
-//Activity:
-
-/*
-
-1. Create a route for archiving a course. The route must use JWT authentication and obtain the course ID from the url.
-2. Create a controller method for archiving a course obtaining the course ID changing the isActive true to false
-3. Process a PUT request at the /courseId/archive route using postman to archive a course
-4. Create a git repository named S35.
-5. Add another remote link and push to git with the commit message of Add activity code - S35 Activity.
-6. Add the link in Boodle named "Express js API Development Part 4".
-
-
-*/
-
+// ARCHIVE (ADMIN)
 router.put('/:courseId/archive', auth.verify, (req, res) => {
   const data = {
     isAdmin: auth.decode(req.headers.authorization).isAdmin,

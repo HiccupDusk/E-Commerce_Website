@@ -1,18 +1,21 @@
-import { Wrap, Stack, Flex, Spacer } from '@chakra-ui/react';
-import { Fragment, useEffect, useState } from 'react';
+import { Heading, Spacer, Wrap, Divider, Box, Flex } from '@chakra-ui/react';
+import { useEffect, useState, useContext } from 'react';
+
+// local component
+import ShopsSection from '../components/ShopSection';
+import ShopsSection2 from '../components/ShopSection2';
+
 import ProductCard from '../components/ProductCard';
-//import coursesData from '../data/coursesData';
+import Pagination from '../components/Pagination';
+import NotSignIn from '../components/NotSignIn';
+
+// USERCONTExt
+import UserContext from '../UserContext';
 
 export default function Shop() {
-  const [products, setProducts] = useState([]);
-  //console.log(coursesData[0])
+  const [products, setProducts] = useState();
 
-  // const courses = coursesData.map(course => {
-
-  // 	return(
-  // 		<CourseCard key={course.id} courseProp={course} />
-  // 		)
-  // })
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetch('http://localhost:4000/api/products/')
@@ -26,11 +29,24 @@ export default function Shop() {
       });
   }, []);
 
-  return (
+  return user.id !== null ? (
     <>
-      <Wrap justify='center' mb={50}>
-        {products}
-      </Wrap>
+      <Flex direction={'column'} alignItems='center' justifyContent='center'>
+        <ShopsSection />
+        <Divider></Divider>
+        <Pagination />
+        <Wrap justify='center' mb={50}>
+          {products}
+        </Wrap>
+
+        <ShopsSection2 />
+      </Flex>
+    </>
+  ) : (
+    <>
+      <NotSignIn />
+      <ShopsSection />
+      <ShopsSection2 />
     </>
   );
 }

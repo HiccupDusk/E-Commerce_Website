@@ -12,6 +12,11 @@ const auth = require('../auth');
 2. use the then method to send a response back to the client
 
 */
+module.exports.getAllUser = () => {
+  return User.find({}).then((result) => {
+    return result;
+  });
+};
 
 module.exports.checkEmailExists = (reqBody) => {
   return User.find({ email: reqBody.email }).then((result) => {
@@ -50,7 +55,6 @@ module.exports.registerUser = (reqBody) => {
 };
 
 module.exports.loginUser = (reqBody) => {
-
   return User.findOne({ email: reqBody.email }).then((result) => {
     //User does not exist
     if (result == null) {
@@ -76,15 +80,6 @@ module.exports.loginUser = (reqBody) => {
   });
 };
 
-//Retrieve user details
-
-/*
-Steps:
-1. Find the document using the user's ID
-2. Reassign the password of the returned document to an empty string
-3. return the result back to the client
-*/
-
 module.exports.getProfile = (data) => {
   return User.findById(data).then((result) => {
     result.password = '';
@@ -93,21 +88,14 @@ module.exports.getProfile = (data) => {
   });
 };
 
-//Enroll user to a course
-/*
-Steps:
-1. Find the document in the database using the user's ID
-2. Add the courseID to the user's enrollment array using the push method.
-3. Add the userId to the course's enrollees arrays.
-4. Save the document
-5. validate, if both course ID and user ID successfully save to the database, return true to the client else, return false
+module.exports.retrieveOrders = (data) => {
+  return User.findById(data).then((result) => {
+    return result.addToCartItems;
+  });
+};
 
-*/
-
-//Async and await - allow the processes to wait for each other
-
-module.exports.enroll = async (data) => {
-  console.log(data);
+module.exports.addToCart = async (data) => {
+  // console.log(data)
   if (data.isAdmin === true) {
     return false;
   } else {
@@ -116,7 +104,9 @@ module.exports.enroll = async (data) => {
     let isUserUpdated = await User.findById(data.userId).then((user) => {
       //push the course Id to enrollments property
 
-      user.enrollments.push({ courseId: data.courseId });
+      user.addToCartItems.push({
+        productId: data.productId,
+      });
 
       //save
       return user.save().then((user, error) => {
@@ -128,7 +118,55 @@ module.exports.enroll = async (data) => {
       });
     });
 
-    let isProductUpdated = await Product.findById(data.courseId).then(
+    let isProductUpdated = await Product.findById(data.productId).then(
+      (product) => {
+        //add the userId in the course's database(enrollees)
+        product.customers.push({ userId: data.userId });
+
+        return product.save().then((product, error) => {
+          if (error) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+      }
+    );
+
+    //   //Validation
+    if (isUserUpdated && isProductUpdated) {
+      //user enrollment successful
+      return true;
+    } else {
+      //user enrollment failed
+      return false;
+    }
+  }
+};
+
+module.exports.checkOut = async (data) => {
+  // console.log(data)
+  if (data.isAdmin === true) {
+    return false;
+  } else {
+    //Add the courseId to the enrollments array of the user
+
+    // let isUserUpdated = await User.findById(data.userId).then((user) => {
+    //   //push the course Id to enrollments property
+
+    //   user.addToCartItems.push({ productId: data.productId });
+
+    //   //save
+    //   return user.save().then((user, error) => {
+    //     if (error) {
+    //       return false;
+    //     } else {
+    //       return true;
+    //     }
+    //   });
+    // });
+
+    let isProductUpdated = await Product.findById(data.productId).then(
       (product) => {
         //add the userId in the course's database(enrollees)
         product.enrollees.push({ userId: data.userId });
@@ -144,7 +182,7 @@ module.exports.enroll = async (data) => {
     );
 
     //Validation
-    if (isUserUpdated && isProductUpdated) {
+    if (/* isUserUpdated && */ isProductUpdated) {
       //user enrollment successful
       return true;
     } else {

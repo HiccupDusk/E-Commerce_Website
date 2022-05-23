@@ -4,7 +4,12 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 
 // LIBRARY
-import { ChakraProvider } from '@chakra-ui/react';
+import {
+  Box,
+  ChakraProvider,
+  useColorModeValue,
+  bgGradient,
+} from '@chakra-ui/react';
 import theme from './theme';
 import './App.css';
 
@@ -19,6 +24,8 @@ import Signup from './pages/Signup';
 import Logout from './pages/Logout';
 import Error from './pages/Error';
 import Shop from './pages/Shop';
+import Cart from './pages/Cart';
+import Dashboard from './pages/Dashboard';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // USERCONTEXT
@@ -54,7 +61,7 @@ function App() {
         }
       });
   }, []);
-
+  // const gradient = (bgGradient = 'linear(to-l, #7928CA, #FF0080)');
   return (
     <ChakraProvider theme={theme}>
       <UserProvider value={{ user, setUser, unsetUser }}>
@@ -67,6 +74,8 @@ function App() {
             <Route path='/signup' element={<Signup />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/logout' element={<Logout />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/dashboard' element={<Dashboard />} />
             <Route path='*' element={<Error />} />
           </Routes>
           <Footer />

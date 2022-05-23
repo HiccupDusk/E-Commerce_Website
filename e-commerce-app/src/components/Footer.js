@@ -42,8 +42,10 @@ const SocialButton = ({ children, label, href }) => {
 export default function SmallWithLogoLeft() {
   return (
     <Box
+      mt='3rem'
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}
+      w='full'
     >
       <Container
         as={Stack}
