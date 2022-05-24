@@ -70,8 +70,22 @@ router.post('/createProduct', auth.verify, (req, res) => {
   }
 });
 
+// DELETE A PRODUCT (ADMIN ONLY)
+router.delete('/deleteProduct/:productIds', auth.verify, (req, res) => {
+  const userData = {
+    isAdmin: auth.decode(req.headers.authorization).isAdmin,
+  };
+  if (userData.isAdmin) {
+    ProductController.deleteProduct(req.params.productIds).then((result) =>
+      res.send(result)
+    );
+  } else {
+    res.send(false);
+  }
+});
+
 //Update a products(ADMIN)
-router.put('/:productId', auth.verify, (req, res) => {
+router.put('/updateProduct/:productId', auth.verify, (req, res) => {
   const data = {
     isAdmin: auth.decode(req.headers.authorization).isAdmin,
   };
@@ -86,13 +100,28 @@ router.put('/:productId', auth.verify, (req, res) => {
 });
 
 // ARCHIVE (ADMIN)
-router.put('/:courseId/archive', auth.verify, (req, res) => {
+router.put('/archive/:productId', auth.verify, (req, res) => {
   const data = {
     isAdmin: auth.decode(req.headers.authorization).isAdmin,
   };
 
   if (data.isAdmin) {
-    CourseController.archiveCourse(req.params.courseId).then((result) =>
+    ProductController.archiveProduct(req.params.productId).then((result) =>
+      res.send(result)
+    );
+  } else {
+    res.send(false);
+  }
+});
+
+// UnARCHIVE (ADMIN)
+router.put('/unarchiveProduct/:productId', auth.verify, (req, res) => {
+  const data = {
+    isAdmin: auth.decode(req.headers.authorization).isAdmin,
+  };
+
+  if (data.isAdmin) {
+    ProductController.unarchiveProduct(req.params.productId).then((result) =>
       res.send(result)
     );
   } else {

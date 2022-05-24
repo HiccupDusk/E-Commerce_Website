@@ -45,6 +45,19 @@ function SignUp() {
 
   const navigate = useNavigate();
 
+  // TOAST
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'bottom-center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
   //State hooks to store the values of the input fields
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -103,7 +116,7 @@ function SignUp() {
                 setPassword1('');
                 setPassword2('');
 
-                Swal.fire({
+                Toast.fire({
                   title: 'Registration successful',
                   icon: 'success',
                   text: 'Welcome to Camisetas, Enjoy your Shopping!',
@@ -111,7 +124,7 @@ function SignUp() {
 
                 navigate('/login');
               } else {
-                Swal.fire({
+                Toast.fire({
                   title: 'Something went wrong!',
                   icon: 'error',
                   text: 'Please try again.',

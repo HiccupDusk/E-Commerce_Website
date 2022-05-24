@@ -1,13 +1,6 @@
 const Product = require('../models/Product');
 
-//Create a new course
-/*
-Steps:
-1. Create a new Course object
-2. Save to the database
-3. error handling
-*/
-
+// DELETE A PRODUCT (ADMIN ONLY) -----------------------------------------------------------------------------
 module.exports.addProduct = (data) => {
   //Create a new object
   let newProduct = new Product({
@@ -25,6 +18,13 @@ module.exports.addProduct = (data) => {
       //Course Creation successful
       return true;
     }
+  });
+};
+
+// DELETE A PRODUCT (ADMIN ONLY) -----------------------------------------------------------------------------
+module.exports.deleteProduct = (productId) => {
+  return Product.findByIdAndDelete(productId).then((result) => {
+    return result ? true : false;
   });
 };
 
@@ -79,7 +79,7 @@ module.exports.addTotalOrders = (data) => {
   ]);
 };
 
-//Retrieve SPECIFIC course ---------------------------------------
+//Retrieve SPECIFIC product ---------------------------------------
 
 module.exports.getProduct = (reqParams) => {
   return Product.findById(reqParams).then((result) => {
@@ -87,11 +87,11 @@ module.exports.getProduct = (reqParams) => {
   });
 };
 
-//Update a course ---------------------------------------
+//Update a Product ---------------------------------------
 
 module.exports.updateProduct = (productId, reqBody) => {
   //specify the properties of the doc to be updated
-  let updatedCourse = {
+  let updatedProduct = {
     name: reqBody.name,
     description: reqBody.description,
     price: reqBody.price,
@@ -99,7 +99,7 @@ module.exports.updateProduct = (productId, reqBody) => {
 
   //findByIdAndUpdate(id, updatesToBeApplied) ---------------------------------------
 
-  return Product.findByIdAndUpdate(productId, updatedCourse).then(
+  return Product.findByIdAndUpdate(productId, updatedProduct).then(
     (product, error) => {
       //course not updated
       if (error) {
@@ -113,7 +113,6 @@ module.exports.updateProduct = (productId, reqBody) => {
 };
 
 //Archive a course ---------------------------------------
-
 module.exports.archiveProduct = (reqParams) => {
   //object
 
@@ -121,8 +120,27 @@ module.exports.archiveProduct = (reqParams) => {
     isActive: false,
   };
 
-  return Course.findByIdAndUpdate(reqParams, updateActiveField).then(
-    (course, error) => {
+  return Product.findByIdAndUpdate(reqParams, updateActiveField).then(
+    (Product, error) => {
+      if (error) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  );
+};
+
+//unArchive a Product ---------------------------------------
+module.exports.unarchiveProduct = (reqParams) => {
+  //object
+
+  let updateActiveField = {
+    isActive: true,
+  };
+
+  return Product.findByIdAndUpdate(reqParams, updateActiveField).then(
+    (Product, error) => {
       if (error) {
         return false;
       } else {
