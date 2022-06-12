@@ -1,11 +1,11 @@
-import { Heading, Spacer, Wrap, Divider, Box, Flex } from '@chakra-ui/react';
+import { Wrap, Divider, Flex } from '@chakra-ui/react';
 import { useEffect, useState, useContext } from 'react';
 
 // local component
-import ShopsSection from '../components/ShopSection';
-import ShopsSection2 from '../components/ShopSection2';
+import ShopsSection from '../components/sectionComponents/ShopSection';
+import ShopsSection2 from '../components/sectionComponents/ShopSection2';
 
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../components/cardComponents/ProductCard';
 import Pagination from '../components/Pagination';
 import NotSignIn from '../components/NotSignIn';
 
@@ -15,10 +15,10 @@ import UserContext from '../UserContext';
 export default function Shop() {
   const [products, setProducts] = useState();
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/products/')
+    fetch('https://stark-spire-46613.herokuapp.com/api/products/')
       .then((res) => res.json())
       .then((data) => {
         setProducts(

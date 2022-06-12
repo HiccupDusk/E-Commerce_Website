@@ -1,19 +1,10 @@
 import React from 'react';
 
 // CHAKRA COMPONENT
-import {
-  Heading,
-  HStack,
-  VStack,
-  Wrap,
-  Button,
-  Text,
-  Flex,
-  Spacer,
-} from '@chakra-ui/react';
+import { HStack, Text, Flex, Spacer } from '@chakra-ui/react';
 
 const OrderCard = ({ OrderCardProp }) => {
-  const { name, price, _id, description } = OrderCardProp;
+  const { name, price } = OrderCardProp;
 
   return (
     <>

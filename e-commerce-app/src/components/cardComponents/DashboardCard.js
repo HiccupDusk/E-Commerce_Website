@@ -8,7 +8,6 @@ import {
   Icon,
   useColorModeValue,
   Button,
-  useBreakpointValue,
   Stack,
   SimpleGrid,
   ButtonGroup,
@@ -80,13 +79,16 @@ const DashboardCard = ({ productProp }) => {
 
   // archiveProduct
   function archiveProduct() {
-    fetch(`http://localhost:4000/api/products/archive/${_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
+    fetch(
+      `https://stark-spire-46613.herokuapp.com/api/products/archive/${_id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data === true) {
@@ -107,13 +109,16 @@ const DashboardCard = ({ productProp }) => {
 
   // archiveProduct
   function unarchiveProduct() {
-    fetch(`http://localhost:4000/api/products/unarchiveProduct/${_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
+    fetch(
+      `https://stark-spire-46613.herokuapp.com/api/products/unarchiveProduct/${_id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data === true) {
@@ -134,13 +139,16 @@ const DashboardCard = ({ productProp }) => {
 
   // delete a product
   const deleteProduct = () => {
-    fetch(`http://localhost:4000/api/products/deleteProduct/${_id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
+    fetch(
+      `https://stark-spire-46613.herokuapp.com/api/products/deleteProduct/${_id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data === true) {
@@ -169,18 +177,21 @@ const DashboardCard = ({ productProp }) => {
   function updateProduct(e) {
     //prevents page redirection via a form submission
     e.preventDefault();
-    fetch(`http://localhost:4000/api/products/updateProduct/${_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify({
-        name: productName,
-        price: productPrice,
-        description: productdescription,
-      }),
-    })
+    fetch(
+      `https://stark-spire-46613.herokuapp.com/api/products/updateProduct/${_id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          name: productName,
+          price: productPrice,
+          description: productdescription,
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data === true) {

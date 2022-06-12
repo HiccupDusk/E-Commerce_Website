@@ -1,6 +1,6 @@
 const Product = require('../models/Product');
 
-// DELETE A PRODUCT (ADMIN ONLY) -----------------------------------------------------------------------------
+// CREATE A PRODUCT (ADMIN ONLY) -----------------------------------------------------------------------------
 module.exports.addProduct = (data) => {
   //Create a new object
   let newProduct = new Product({

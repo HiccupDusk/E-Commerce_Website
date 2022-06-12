@@ -1,11 +1,9 @@
 import React from 'react';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Heading,
   HStack,
-  VStack,
-  Wrap,
   Button,
   Text,
   useColorModeValue,
@@ -13,20 +11,23 @@ import {
 } from '@chakra-ui/react';
 
 // local Component
-import OrderCard from './OrderCard';
+import OrderCard from './cardComponents/OrderCard';
 
 const OrderSummary = () => {
   // ORDER SUMMARY CARD
   const [order, setOrder] = useState([]);
   const [total, setTotal] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:4000/api/products/retrieveOrderUser', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
+    fetch(
+      'https://stark-spire-46613.herokuapp.com/api/products/retrieveOrderUser',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setOrder(
@@ -35,15 +36,18 @@ const OrderSummary = () => {
           })
         );
       });
-  }, []);
+  });
   useEffect(() => {
-    fetch('http://localhost:4000/api/products/addTotalOrders', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
+    fetch(
+      'https://stark-spire-46613.herokuapp.com/api/products/addTotalOrders',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setTotal(
@@ -56,22 +60,21 @@ const OrderSummary = () => {
           })
         );
       });
-  }, []);
+  });
 
   return (
     <Flex
       bg={useColorModeValue('gray.100', 'gray.600')}
       m='2rem'
-      p='3rem'
+      p='2rem'
       direction='column'
       borderRadius='lg'
       gap='2rem'
-      h='max-content'
     >
       <Heading size='md'> ORDERS SUMMARY:</Heading>
       <Heading size='xs'>ITEMS:</Heading>
       {order}
-      <HStack gap='10rem'>
+      <HStack gap='5rem'>
         <Heading size='sm'>TOTAL PRICE:</Heading>
         {total}
       </HStack>
@@ -79,10 +82,9 @@ const OrderSummary = () => {
       <Button
         bgGradient='linear(to-l,pink.300,  teal.400)'
         color='teal.400'
-        ms='5px'
         href='#'
         fontWeight='bold'
-        p='7'
+        p='5'
       >
         <Text mx='3rem' color='white'>
           Proceed to Checkout

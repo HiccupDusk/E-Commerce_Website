@@ -4,13 +4,7 @@ import {
   Box,
   useColorModeValue,
   Flex,
-  Badge,
-  Input,
-  VisuallyHidden,
   SimpleGrid,
-  Button,
-  InputGroup,
-  InputRightElement,
   Image,
 } from '@chakra-ui/react';
 

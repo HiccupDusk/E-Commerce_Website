@@ -11,8 +11,6 @@ import {
 } from '@chakra-ui/react';
 
 // Here we have used react-icons package for the icons
-import { FaGithub } from 'react-icons/fa';
-import { TiShoppingCart } from 'react-icons/ti';
 import { Link as ReactRouterLink } from 'react-router-dom';
 
 const HeroSection = () => {

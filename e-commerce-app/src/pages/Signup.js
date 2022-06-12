@@ -72,7 +72,7 @@ function SignUp() {
     //prevents page redirection via a form submission
     e.preventDefault();
 
-    fetch('http://localhost:4000/api/users/checkEmail', {
+    fetch('https://stark-spire-46613.herokuapp.com/api/users/checkEmail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ function SignUp() {
             text: 'Kindly provide another email to complete the registration',
           });
         } else {
-          fetch('http://localhost:4000/api/users/register', {
+          fetch('https://stark-spire-46613.herokuapp.com/api/users/register', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -298,7 +298,6 @@ function SignUp() {
               or
             </Text>
             {/* FORM CONTROL*/}
-
             <form onSubmit={(e) => registerUser(e)}>
               <FormControl>
                 <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
@@ -314,6 +313,7 @@ function SignUp() {
                   size='lg'
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
+                  id='1'
                 />
                 <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
                   Last Name

@@ -16,17 +16,12 @@ import {
   Text,
   Button,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-
-// USERCONTEXT
-// import UserContext from '../UserContext';
 
 // ALERTS
 import Swal from 'sweetalert2';
 
 export default function ProductCard({ productProp }) {
   const { name, price, _id, description } = productProp;
-  // const { user } = useContext(UserContext);
 
   // TOAST
   const Toast = Swal.mixin({
@@ -45,7 +40,7 @@ export default function ProductCard({ productProp }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   function addToCart() {
-    fetch('http://localhost:4000/api/users/addToCart', {
+    fetch('https://stark-spire-46613.herokuapp.com/api/users/addToCart', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -83,15 +78,15 @@ export default function ProductCard({ productProp }) {
       <Box
         maxW='xs'
         mx='auto'
-        // bg={useColorModeValue('WHITE', 'gray.600')}
-        bgGradient='linear(to-r,teal.100, pink.100)'
+        bg={useColorModeValue('gray.200', 'gray.600')}
+        // bgGradient='linear(to-r,teal.100, pink.100)'
         shadow='lg'
         rounded='lg'
       >
         {/* NAME */}
         <Box px={4} py={2}>
           <chakra.h1
-            color={useColorModeValue('gray.800', 'gray.600')}
+            color={useColorModeValue('gray.800', 'gray.100')}
             fontWeight='bold'
             fontSize='3xl'
             textTransform='uppercase'
@@ -102,7 +97,7 @@ export default function ProductCard({ productProp }) {
           <chakra.p
             mt={1}
             fontSize='sm'
-            color={useColorModeValue('gray.600', 'gray.600')}
+            color={useColorModeValue('gray.600', 'gray.100')}
           >
             {description}
           </chakra.p>
@@ -127,7 +122,7 @@ export default function ProductCard({ productProp }) {
         >
           {/* PRICE */}
           <chakra.h1
-            color={useColorModeValue('black.50', 'white')}
+            color={useColorModeValue('black.50', 'gray.100')}
             fontWeight='bold'
             fontSize='lg'
           >
@@ -176,7 +171,7 @@ export default function ProductCard({ productProp }) {
           {/* modal */}
           <Modal isOpen={isOpen} onClose={onClose} size='sm'>
             <ModalOverlay />
-            <ModalContent bgGradient='linear(to-r, teal.100, pink.50)'>
+            <ModalContent bg={useColorModeValue('white', 'gray.600')}>
               <ModalHeader
                 color={useColorModeValue('gray.800', 'white')}
                 fontWeight='bold'
@@ -194,8 +189,8 @@ export default function ProductCard({ productProp }) {
                 >
                   Price: ${price}
                 </chakra.h1>
-                <Text> Description: {description}</Text>
-
+                <Text fontWeight='bold'> Description:</Text>
+                <Text> {description}</Text>
                 <Image
                   fit=''
                   mt={2}

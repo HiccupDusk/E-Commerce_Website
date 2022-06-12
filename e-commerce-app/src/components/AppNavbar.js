@@ -190,6 +190,30 @@ export default function Header() {
           Cart
         </Button>
       </ReactRouterLink>
+      {/* signin */}
+      {user.id !== null ? (
+        <>
+          <ReactRouterLink to='/logout'>
+            <Button w='full' variant='ghost'>
+              Logout
+            </Button>
+          </ReactRouterLink>{' '}
+        </>
+      ) : (
+        <>
+          <ReactRouterLink to='/login'>
+            <Button w='full' variant='ghost' leftIcon={<TiShoppingCart />}>
+              Sign In
+            </Button>
+          </ReactRouterLink>
+          {/* sign up */}
+          <ReactRouterLink to='/signup'>
+            <Button w='full' variant='ghost' leftIcon={<TiShoppingCart />}>
+              Sign Up
+            </Button>
+          </ReactRouterLink>
+        </>
+      )}
     </VStack>
   );
   return (

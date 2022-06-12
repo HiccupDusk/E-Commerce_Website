@@ -9,7 +9,6 @@ import {
   SimpleGrid,
   Icon,
   Button,
-  Wrap,
 } from '@chakra-ui/react';
 
 export default function Component() {
@@ -60,7 +59,7 @@ export default function Component() {
         bg={bottomBg}
       >
         <Box pt={20} rounded='md' bg={topBg}>
-          <Box w='full' px={[10, , 4]} mx='auto'>
+          <Box w='full' px={[10, 4]} mx='auto'>
             <Text
               mb={2}
               fontSize={{ sm: '2xl', lg: '5xl' }}
@@ -73,7 +72,7 @@ export default function Component() {
             </Text>
             <chakra.p
               mb={6}
-              fontSize={['lg', , 'xl']}
+              fontSize={['lg', 'xl']}
               color={useColorModeValue('gray.600', 'gray.400')}
             >
               If you're not satisfied, contact us and we'll refund you within
@@ -101,7 +100,7 @@ export default function Component() {
                   Get a Membership Card
                 </Text>
                 <chakra.p
-                  fontSize={['sm', , 'md']}
+                  fontSize={['sm', 'md']}
                   color={useColorModeValue('gray.600', 'gray.400')}
                 >
                   One plan for any organization—from startups to Fortune 500s.
@@ -130,7 +129,7 @@ export default function Component() {
                   />
                 </Flex>
                 <Flex>
-                  <SimpleGrid columns={[1, , 2, 1, 2]} spacingY={4}>
+                  <SimpleGrid columns={[1, 2, 1, 2]} spacingY={4}>
                     <Feature>Unlimited Free Shipping</Feature>
                     <Feature>Discounts, Coupons and many more! </Feature>
                     <Feature>Priority In Delivery</Feature>
@@ -157,7 +156,7 @@ export default function Component() {
                 <Flex
                   align='center'
                   fontSize='5xl'
-                  fontWeight={['bold', , 'extrabold']}
+                  fontWeight={['bold', 'extrabold']}
                   lineHeight='tight'
                 >
                   $500

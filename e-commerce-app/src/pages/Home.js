@@ -1,18 +1,9 @@
 import * as React from 'react';
-import {
-  Container,
-  chakra,
-  Stack,
-  Text,
-  Button,
-  Box,
-  Divider,
-} from '@chakra-ui/react';
+import { Box, Divider } from '@chakra-ui/react';
 
 // Here we have used react-icons package for the icons
-import { FaGithub } from 'react-icons/fa';
-import HomeSection1 from '../components/HomeSection1';
-import HomeSection2 from '../components/HomeSection2';
+import HomeSection1 from '../components/sectionComponents/HomeSection1';
+import HomeSection2 from '../components/sectionComponents/HomeSection2';
 
 const HeroSection = () => {
   return (

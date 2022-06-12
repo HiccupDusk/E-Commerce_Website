@@ -4,28 +4,22 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 
 // LIBRARY
-import {
-  Box,
-  ChakraProvider,
-  useColorModeValue,
-  bgGradient,
-} from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import theme from './theme';
-import './App.css';
 
 // COMPONENTS
 import AppNavbar from './components/AppNavbar';
 import Footer from './components/Footer';
 
 // PAGES
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Logout from './pages/Logout';
-import Error from './pages/Error';
-import Shop from './pages/Shop';
-import Cart from './pages/Cart';
-import Dashboard from './pages/Dashboard';
+import Home from './pages/home';
+import Login from './pages/login';
+import Signup from './pages/signup';
+import Logout from './pages/logout';
+import Error from './pages/error';
+import Shop from './pages/shop';
+import Cart from './pages/cart';
+import Dashboard from './pages/dashboard';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // USERCONTEXT
@@ -41,7 +35,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/users/details', {
+    fetch('https://stark-spire-46613.herokuapp.com/api/users/details', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

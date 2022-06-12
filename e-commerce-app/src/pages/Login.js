@@ -21,8 +21,6 @@ import {
   useColorModeValue,
   InputGroup,
   InputRightElement,
-  useToast,
-  Link,
   HStack,
 } from '@chakra-ui/react';
 
@@ -37,7 +35,6 @@ import { Navigate } from 'react-router-dom';
 
 function SignIn() {
   // Chakra color mode
-  const titleColor = useColorModeValue('teal.300', 'teal.200');
   const textColor = useColorModeValue('gray.400', 'white');
 
   //  authentication
@@ -55,7 +52,7 @@ function SignIn() {
   // TOAST
   const Toast = Swal.mixin({
     toast: true,
-    position: 'bottom-center',
+    position: 'center',
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
@@ -67,7 +64,7 @@ function SignIn() {
 
   function authenticate(e) {
     e.preventDefault();
-    fetch('http://localhost:4000/api/users/login', {
+    fetch('https://stark-spire-46613.herokuapp.com/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +84,7 @@ function SignIn() {
           Toast.fire({
             title: 'Sign in successfully',
             icon: 'success',
-            title: 'Welcome to Camisetas, Enjoy your Stay!',
+            text: 'Welcome to Camisetas, Enjoy your Stay!',
             background: '#F5F5F5',
           });
         } else {
@@ -102,24 +99,10 @@ function SignIn() {
 
     setEmail('');
     setPassword('');
-
-    /*
-		Syntax:
-			localStorage.setItem("propertyName", value)
-
-		*/
-    //localStorage.setItem("email", email)
-
-    //Set the global user state to have properties from local storage
-    // setUser({
-    // 	email: localStorage.getItem('email')
-    // })
-
-    //alert(`${email} has been verified. Welcome back!`);
   }
 
   const retrieveUserDetails = (token) => {
-    fetch('http://localhost:4000/api/users/details', {
+    fetch('https://stark-spire-46613.herokuapp.com/api/users/details', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -211,6 +194,7 @@ function SignIn() {
                       type='text'
                       placeholder='Your email adress'
                       size='lg'
+                      id='1'
                     />
                     {/* end of email */}
                     {/* password */}
@@ -227,6 +211,7 @@ function SignIn() {
                         size='lg'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        id='2'
                       />
                       <InputRightElement width='4.5rem' mt={1}>
                         <Button
